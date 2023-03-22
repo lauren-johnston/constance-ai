@@ -1,15 +1,16 @@
 import { SpeechClient } from '@google-cloud/speech';
 import axios from 'axios';
 import { TextToSpeechClient } from '@google-cloud/text-to-speech';
+import downloadWav from 'webm-to-wav-converter/types/downloadUtil';
 
 const speechClient = new SpeechClient();
 const gptApiKey = process.env.OPENAI_API_KEY;
 const ttsClient = new TextToSpeechClient();
 
-async function transcribe(audio: Buffer): Promise<string> {
+async function transcribe(audio: Buffer): Promise<string> {  
   const request = {
     audio: {
-      content: audio,
+      content:audio.toString("base64"),
     },
     config: {
       encoding: 'LINEAR16',

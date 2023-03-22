@@ -44,6 +44,9 @@ const Chatbot = () => {
     try {
       const response = await fetch('/api/interact', {
         method: 'POST',
+        headers: {
+          "Content-Type": "audio/wav",
+        },
         body: audioBlob,
       });
 
