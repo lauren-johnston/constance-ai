@@ -9,7 +9,7 @@ const ttsClient = new TextToSpeechClient();
 async function transcribe(audio: Buffer): Promise<string> {
   const request = {
     audio: {
-      content: audio.toString('base64'),
+      content: audio,
     },
     config: {
       encoding: 'LINEAR16',

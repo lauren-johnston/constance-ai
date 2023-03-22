@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { downloadWav, getWaveBlob } from "webm-to-wav-converter";
 
 const Chatbot = () => {
   const [isRecording, setIsRecording] = useState(false);
@@ -21,10 +22,12 @@ const Chatbot = () => {
       audioChunks.push(event.data);
     };
   
-    mediaRecorder.onstop = () => {
+    mediaRecorder.onstop = async () => {
       // Combine audio chunks into a single Blob
       const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
-      setAudioBlob(audioBlob);
+      const wavBlob = await getWaveBlob(audioBlob,false);
+      //downloadWav(wavBlob,false);
+      setAudioBlob(wavBlob);
     };
   
     // Start recording
