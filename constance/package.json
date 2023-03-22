@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@google-cloud/speech": "^5.4.0",
+    "@google-cloud/storage": "^6.9.4",
     "@google-cloud/text-to-speech": "^4.2.1",
     "@types/node": "18.15.5",
     "@types/react": "18.0.28",
@@ -22,6 +23,8 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "typescript": "5.0.2",
+    "uuid": "^9.0.0",
+    "uuidv4": "^6.2.13",
     "webm-to-wav-converter": "^1.1.0"
   },
   "devDependencies": {
