@@ -1,7 +1,6 @@
 import { SpeechClient } from '@google-cloud/speech';
 import axios from 'axios';
 import { TextToSpeechClient } from '@google-cloud/text-to-speech';
-import downloadWav from 'webm-to-wav-converter/types/downloadUtil';
 import { Storage } from "@google-cloud/storage";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -12,23 +11,9 @@ const gptApiKey = process.env.OPENAI_API_KEY;
 const ttsClient = new TextToSpeechClient();
 
 async function transcribe(audio: Buffer): Promise<string> {
-  // audio to base64
-  // Upload the audio data to Google Cloud Storage
-
-  // TODO(Lauren): put this in config file
-  const bucketName = "constance-text";
-  const fileName = uuidv4() + ".wav"; // generate a unique file name for each upload
-  const bucket = storage.bucket(bucketName);
-  const file = bucket.file(fileName);
-  await file.save(audio, {
-    metadata: {
-      contentType: "audio/wav",
-    },
-  });
-
   const request = {
     audio: {
-      uri: `gs://${bucketName}/${fileName}`,
+      content: audio.toString('base64'),
     },
     config: {
       encoding: "LINEAR-16",
