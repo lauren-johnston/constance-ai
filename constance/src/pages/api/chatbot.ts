@@ -1,9 +1,6 @@
 import { SpeechClient } from '@google-cloud/speech';
 import axios from 'axios';
 import { TextToSpeechClient } from '@google-cloud/text-to-speech';
-import { Storage } from "@google-cloud/storage";
-
-const storage = new Storage();
 
 const speechClient = new SpeechClient();
 const gptApiKey = process.env.OPENAI_API_KEY;

@@ -5,6 +5,8 @@ import { interactWithUser } from './chatbot';
 import formidable, { File } from 'formidable';
 import fs from 'fs/promises';
 
+// Next js by default applies body parsing logic: this block of code enables
+// parsing the form data properly by removing the default logic 
 export const config = {
   api: {
     bodyParser: false,
