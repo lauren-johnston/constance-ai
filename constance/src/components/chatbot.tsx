@@ -1,5 +1,5 @@
 import { useRef, useState } from 'react';
-import { downloadWav, getWaveBlob } from "webm-to-wav-converter";
+import { getWaveBlob } from "webm-to-wav-converter";
 
 const Chatbot = () => {
   const [isRecording, setIsRecording] = useState(false);
@@ -26,7 +26,6 @@ const Chatbot = () => {
       // Combine audio chunks into a single Blob
       const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
       const wavBlob = await getWaveBlob(audioBlob,false);
-      //downloadWav(wavBlob,false);
       setAudioBlob(wavBlob);
     };
   
@@ -41,13 +40,17 @@ const Chatbot = () => {
       return;
     }
     console.log('Sending audio to chatbot...');
+  
+    // Create a FormData instance
+    const formData = new FormData();
+    const file = new File([audioBlob], "audio.wav", {lastModified: Date.now()});
+
+    formData.append('audio', file);
+
     try {
       const response = await fetch('/api/interact', {
         method: 'POST',
-        headers: {
-          "Content-Type": "audio/wav",
-        },
-        body: audioBlob,
+        body: formData, // Send the FormData instance as the request body
       });
 
       if (response.ok) {

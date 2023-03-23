@@ -13,7 +13,6 @@ const ttsClient = new TextToSpeechClient();
 
 async function transcribe(audio: Buffer): Promise<string> {
   // audio to base64
-  const base64Audio = Buffer.from(audio).toString('base64');  
   // Upload the audio data to Google Cloud Storage
 
   // TODO(Lauren): put this in config file
@@ -21,7 +20,7 @@ async function transcribe(audio: Buffer): Promise<string> {
   const fileName = uuidv4() + ".wav"; // generate a unique file name for each upload
   const bucket = storage.bucket(bucketName);
   const file = bucket.file(fileName);
-  await file.save(base64Audio, {
+  await file.save(audio, {
     metadata: {
       contentType: "audio/wav",
     },
@@ -33,15 +32,12 @@ async function transcribe(audio: Buffer): Promise<string> {
     },
     config: {
       encoding: "LINEAR-16",
-      sampleRateHertz: 16000,
+      sampleRateHertz: 48000,
       languageCode: 'fr-FR',
     },
   };
-  console.log(request);
-
 
   const [response] = await speechClient.recognize(request);
-  console.log(response);
   const transcription = response.results
       .map((result: { alternatives: { transcript: any; }[]; }) => result.alternatives[0].transcript)
       .join('\n');

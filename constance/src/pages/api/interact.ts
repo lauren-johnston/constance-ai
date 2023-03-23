@@ -1,20 +1,39 @@
 // pages/api/interact.ts
 
-import type { NextApiRequest, NextApiResponse } from 'next';
+import { NextApiRequest, NextApiResponse } from 'next';
 import { interactWithUser } from './chatbot';
+import formidable, { File } from 'formidable';
+import fs from 'fs/promises';
+
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'POST') {
     try {
-      // check for body = empty string
-      if (!req.body) {
-        res.status(400).json({ message: 'Body is empty' });
+      const formData = await new Promise<{ [key: string]: File }>((resolve, reject) => {
+        const form = new formidable.IncomingForm();
+        form.parse(req, (err, _fields, files) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+          resolve(files);
+        });
+      });
+
+
+      const audioFile = await formData.audio;
+      if (!audioFile) {
+        res.status(400).json({ message: 'No audio file found' });
         return;
       }
 
-      // Assuming that the frontend sends audio data as binary in the request body
-      const audioInput = Buffer.from(req.body);
-      const audioOutput = await interactWithUser(audioInput);
+      const audioBuffer = await fs.readFile(audioFile.filepath);
+      const audioOutput = await interactWithUser(audioBuffer);
 
       res.status(200).send(audioOutput);
     } catch (error) {
