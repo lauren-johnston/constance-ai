@@ -2,7 +2,6 @@ import { SpeechClient } from '@google-cloud/speech';
 import axios from 'axios';
 import { TextToSpeechClient } from '@google-cloud/text-to-speech';
 import { Storage } from "@google-cloud/storage";
-import { v4 as uuidv4 } from 'uuid';
 
 const storage = new Storage();
 
