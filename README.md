@@ -1,8 +1,8 @@
 # constance-ai
-Constance: A French conversation practice chatbot
+Constance: A French conversation practice voice chatbot
 
 ## Introduction
-Meet Constance, your personal French-speaking chatbot, who's here to add a little "je ne sais quoi" to your language learning journey. With Constance, you can converse on a wide range of topics, from food to fashion, and she'll help you perfect your grammar like a true language expert. But unlike your traditional teacher, Constance won't make you feel like a fool for mispronouncing "croissant" (hey, we all have our struggles!). Whether you're a Francophile or just trying to impress your Tinder match who lives in France, Constance is the perfect companion to help you "parlez-vous français" with confidence and a little bit of "joie de vivre". So, let's get chatting with Constance!
+Meet Constance, your personal French-speaking voice chatbot, who's here to add a little "je ne sais quoi" to your language learning journey. With Constance, you can converse on a wide range of topics, from food to fashion, and she'll help you perfect your grammar like a true language expert. But unlike your traditional teacher, Constance won't make you feel like a fool for mispronouncing "croissant" (hey, we all have our struggles!). Whether you're a Francophile or just trying to impress your Tinder match who lives in France, Constance is the perfect companion to help you "parlez-vous français" with confidence and a little bit of "joie de vivre". So, let's get chatting with Constance!
 
 ## Development process
 
