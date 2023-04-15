@@ -2,11 +2,25 @@ import { useRef, useState } from 'react';
 import { getWaveBlob } from "webm-to-wav-converter";
 
 const Chatbot = () => {
+  /**
+   * This function is a React component that handles audio recording and sending to a chatbot.
+   *
+   * @return {JSX.Element} Returns a React component with a UI interface for recording audio and sending it to a chatbot.
+   */
   const [isRecording, setIsRecording] = useState(false);
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
 
   const toggleRecording = async () => {
+    /**
+     * Toggles recording of audio. If recording is currently ongoing, it stops
+     * recording. If recording is not ongoing, it requests user's microphone and starts
+     * recording. When recording is stopped, it combines audio chunks into a single
+     * Blob and converts it into a WAV format using the getWaveBlob function, and sets
+     * the resulting Blob as the state of the component.
+     *
+     * @return {void}
+     */
     if (isRecording) {
       mediaRecorderRef.current?.stop();
       return;
@@ -35,6 +49,14 @@ const Chatbot = () => {
   };
   
   const sendAudioToChatbot = async (audioBlob: Blob) => {
+    /**
+   * Sends an audio blob to the chatbot API and plays the chatbot's audio response.
+   *
+   * @async
+   * @param {Blob} audioBlob - The audio blob to send to the chatbot API.
+   * @return {undefined}
+   * @throws {Error} If there is an error sending the audio blob or playing the chatbot's audio response.
+   */
     if (!audioBlob) {
       console.error('No audio to send');
       return;
